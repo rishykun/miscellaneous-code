@@ -9,7 +9,7 @@ degrees counterclockwise
 	M pointer to matrix
 	N dimension
 */
-int** rotate(int** M, int N){
+void rotate(int** M, int N){
 		int rotM[N][N];
 		int temp;
 		for (int i = 0; i <= N/2-1; i++){
