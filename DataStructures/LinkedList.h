@@ -1,24 +1,29 @@
 #include <cstddef>
+#include <stdlib.h>
 
+using namespace std;
 
-template <class T> class SinglyLinkedList{
-struct node {
+template <class T> struct node{
 	T data;
-	node* next;
-	node* prev;
+	node<T>* next;
+	node<T>* prev;
 };
-	node* tail;
+
+
+template <class T> class SinglyLinkedList{	
+node<T>* tail;
 public:
 	SinglyLinkedList(T data){
-		struct node init = {data};
-		tail = &init;
+		tail = (node<T>*) malloc(sizeof(struct node<T>));
+		tail->data = data;
+		tail->next = NULL;
 	};
-	node getTail() {return *tail;};
-	node search(T data){
-		node* currentNode = tail;
+	node<T>* getTail() {return tail;};
+	node<T>* search(T data){
+		node<T>* currentNode = tail;
 		do{
 			if (currentNode->data == data){
-				return *currentNode;
+				return currentNode;
 			}
 			currentNode = currentNode->next;
 		}
@@ -26,12 +31,14 @@ public:
 		return NULL;
 	};
 	void insert(T data){
-		struct node ins = {data, tail};
-		tail = &ins;
+		node<T>* ins = (node<T>*) malloc(sizeof(struct node<T>));
+		ins->data = data;
+		ins->next = tail;
+		tail = ins;
 	};
-	void Delete(T data){
-		node* prevNode;
-		node* currentNode = tail;
+	void remove(T data){
+		node<T>* prevNode;
+		node<T>* currentNode = tail;
 		do{
 			if (currentNode->data == data){
 				if (currentNode == tail){
@@ -51,26 +58,23 @@ public:
 };
 
 template <class T> class DoublyLinkedList{
-struct node {
-	T data;
-	node* next;
-	node* prev;
-};
-	node* tail;
-	node* head;
+	node<T>* tail;
+	node<T>* head;
 public:
 	DoublyLinkedList(T data){
-		struct node init = {data};
-		tail = &init;
-		head = &init;
+		head = (node<T>*) malloc(sizeof(struct node<T>));
+		tail = head;
+		head->data = data;
+		head->next = NULL;
+		head->prev = NULL;
 	};
-	node getTail() {return *tail;};
-	node getHead() {return *head;};
-	node search(T data){
-		node* currentNode = tail;
+	node<T>* getTail() {return tail;};
+	node<T>* getHead() {return head;};
+	node<T>* search(T data){
+		node<T>* currentNode = tail;
 		do{
 			if (currentNode->data == data){
-				return *currentNode;
+				return currentNode;
 			}
 			currentNode = currentNode->next;
 		}
@@ -78,12 +82,14 @@ public:
 		return NULL;
 	};
 	void insert(T data){
-		node ins = {data, tail};
-		tail->prev = &ins;
-		tail = &ins;
+		node<T>* ins = (node<T>*) malloc(sizeof(struct node<T>));
+		ins->data = data;
+		ins->next = tail;
+		tail->prev = ins;
+		tail = ins;
 	};
-	void Delete(T data){
-		node* currentNode = tail;
+	void remove(T data){
+		node<T>* currentNode = tail;
 		do{
 			if (currentNode->data == data){
 				if (currentNode == tail){
