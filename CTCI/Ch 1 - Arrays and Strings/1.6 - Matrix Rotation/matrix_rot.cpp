@@ -10,7 +10,6 @@ degrees counterclockwise
 	N dimension
 */
 void rotate(int** M, int N){
-		int rotM[N][N];
 		int temp;
 		for (int i = 0; i <= N/2-1; i++){
 			for (int j = 0; j <= (N-1)/2; j++){
