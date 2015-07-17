@@ -69,18 +69,37 @@ void removeGivenNode(node<T>* theNode, SinglyLinkedList<T>* list){
 } 
 
 
+/* Problem 2.4
+Partitioning a linked list
+*/
+template<class T>
+SinglyLinkedList<T> partitionLL(T data, SinglyLinkedList<T> list){
+	SinglyLinkedList<T> front = SinglyLinkedList<T>();
+	SinglyLinkedList<T> end = SinglyLinkedList<T>();
+	node<T>* runner = list.getHead();
+	while (runner != NULL){
+		runner->data <= data ? front.insert(runner->data):end.insert(runner->data);
+		runner = runner -> next;
+	}
+	runner = front.getHead();
+	while (runner->next != NULL){
+		runner = runner -> next;
+	}
+	runner -> next = end.getHead();
+	return front;
+}
+
 /*
 Used for testing
 */
 int main(){
-	SinglyLinkedList<int> list = SinglyLinkedList<int>(1);
+	SinglyLinkedList<int> list = SinglyLinkedList<int>();
 	node<int>* give;
-	for (int i = 2; i < 11; i++){
-		list.insert(i);
+	for (int i = 1; i < 11; i++){
+		list.insert(i*i*i % 11);
 	}
-	give = list.getHead()->next->next->next->next->next->next->next->next->next;
-	removeGivenNode(give, &list);
-	node<int>* print = list.getHead();
+	SinglyLinkedList<int> list2 = partitionLL(5, list);
+	node<int>* print = list2.getHead();
 
 	while (print != NULL){
 		cout << print->data << " ";

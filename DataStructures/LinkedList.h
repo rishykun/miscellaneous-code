@@ -11,13 +11,16 @@ template <class T> struct node{
 
 
 template <class T> class SinglyLinkedList{	
-node<T>* head;
 public:
+	node<T>* head;
 	SinglyLinkedList(T data){
 		head = (node<T>*) malloc(sizeof(struct node<T>));
 		head->data = data;
 		head->next = NULL;
 	};
+	SinglyLinkedList(){
+		head = NULL;
+	}
 	node<T>* getHead() {return head;};
 	node<T>* search(T data){
 		node<T>* currentNode = head;
@@ -58,15 +61,19 @@ public:
 };
 
 template <class T> class DoublyLinkedList{
+public:
 	node<T>* tail;
 	node<T>* head;
-public:
 	DoublyLinkedList(T data){
 		head = (node<T>*) malloc(sizeof(struct node<T>));
 		tail = head;
 		head->data = data;
 		head->next = NULL;
 		head->prev = NULL;
+	};
+	DoublyLinkedList(){
+		head = NULL;
+		tail = NULL;
 	};
 	node<T>* getTail() {return tail;};
 	node<T>* getHead() {return head;};
@@ -85,7 +92,9 @@ public:
 		node<T>* ins = (node<T>*) malloc(sizeof(struct node<T>));
 		ins->data = data;
 		ins->next = head;
-		head->prev = ins;
+		if (head != NULL){
+			head->prev = ins;
+		}
 		head = ins;
 	};
 	void remove(T data){
