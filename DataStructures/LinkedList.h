@@ -11,16 +11,16 @@ template <class T> struct node{
 
 
 template <class T> class SinglyLinkedList{	
-node<T>* tail;
+node<T>* head;
 public:
 	SinglyLinkedList(T data){
-		tail = (node<T>*) malloc(sizeof(struct node<T>));
-		tail->data = data;
-		tail->next = NULL;
+		head = (node<T>*) malloc(sizeof(struct node<T>));
+		head->data = data;
+		head->next = NULL;
 	};
-	node<T>* getTail() {return tail;};
+	node<T>* getHead() {return head;};
 	node<T>* search(T data){
-		node<T>* currentNode = tail;
+		node<T>* currentNode = head;
 		do{
 			if (currentNode->data == data){
 				return currentNode;
@@ -33,16 +33,16 @@ public:
 	void insert(T data){
 		node<T>* ins = (node<T>*) malloc(sizeof(struct node<T>));
 		ins->data = data;
-		ins->next = tail;
-		tail = ins;
+		ins->next = head;
+		head = ins;
 	};
 	void remove(T data){
 		node<T>* prevNode;
-		node<T>* currentNode = tail;
+		node<T>* currentNode = head;
 		do{
 			if (currentNode->data == data){
-				if (currentNode == tail){
-					tail = currentNode->next;
+				if (currentNode == head){
+					head = currentNode->next;
 				}
 				else{
 				prevNode->next = currentNode->next;
@@ -71,7 +71,7 @@ public:
 	node<T>* getTail() {return tail;};
 	node<T>* getHead() {return head;};
 	node<T>* search(T data){
-		node<T>* currentNode = tail;
+		node<T>* currentNode = head;
 		do{
 			if (currentNode->data == data){
 				return currentNode;
@@ -84,19 +84,19 @@ public:
 	void insert(T data){
 		node<T>* ins = (node<T>*) malloc(sizeof(struct node<T>));
 		ins->data = data;
-		ins->next = tail;
-		tail->prev = ins;
-		tail = ins;
+		ins->next = head;
+		head->prev = ins;
+		head = ins;
 	};
 	void remove(T data){
-		node<T>* currentNode = tail;
+		node<T>* currentNode = head;
 		do{
 			if (currentNode->data == data){
-				if (currentNode == tail){
-					tail = currentNode->next;
+				if (currentNode == head){
+					head = currentNode->next;
 				}
 				else if (currentNode == head){
-					head = currentNode->prev;
+					tail = currentNode->prev;
 				}
 				else{
 				currentNode->prev->next = currentNode->next;
