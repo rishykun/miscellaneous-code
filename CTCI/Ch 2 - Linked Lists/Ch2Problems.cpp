@@ -51,14 +51,35 @@ T getElementFromHead(int k, SinglyLinkedList<T> list){
 	return runner->data;
 } 
 
+/* Problem 2.3
+Remove from linked list given node
+*/
+template<class T>
+void removeGivenNode(node<T>* theNode, SinglyLinkedList<T>* list){
+	node<T>* runner = list->getHead();
+	if (theNode == runner){
+		list->remove(runner->data);
+	}
+	else {
+		while (runner->next != theNode){
+			runner = runner -> next;
+		}
+		runner->next = theNode->next;
+	}
+} 
+
+
 /*
 Used for testing
 */
 int main(){
 	SinglyLinkedList<int> list = SinglyLinkedList<int>(1);
+	node<int>* give;
 	for (int i = 2; i < 11; i++){
 		list.insert(i);
 	}
+	give = list.getHead()->next->next->next->next->next->next->next->next->next;
+	removeGivenNode(give, &list);
 	node<int>* print = list.getHead();
 
 	while (print != NULL){
@@ -67,9 +88,5 @@ int main(){
 	}
 
 	cout << endl;
-
-	for(int j = 1; j < 11; j++){
-	cout << getElementFromHead(j, list) << " ";
-	}
 
 }
