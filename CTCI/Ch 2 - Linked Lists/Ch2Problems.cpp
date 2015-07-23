@@ -89,23 +89,76 @@ SinglyLinkedList<T> partitionLL(T data, SinglyLinkedList<T> list){
 	return front;
 }
 
+/* Problem 2.5
+Summing using linked list representations
+*/
+//1s digit is head
+int BackwardSum(SinglyLinkedList<int> L1, SinglyLinkedList<int>L2){
+	node<int>* runner1 = L1.getHead();
+	node<int>* runner2 = L2.getHead();
+	int sum = 0;
+	int power = 1;
+	while (runner1 != NULL){
+		sum += power*(runner1->data + runner2 -> data);
+		runner1 = runner1->next;
+		runner2 = runner2->next;
+		power*=10;
+	}
+	return sum;
+}
+//Leading digit is head
+int ForwardSum(SinglyLinkedList<int> L1, SinglyLinkedList<int>L2){
+	node<int>* runner1 = L1.getHead();
+	node<int>* runner2 = L2.getHead();
+	int sum = 0;
+	while (runner1 != NULL){
+		sum = (10*sum + (runner1->data + runner2 -> data));
+		runner1 = runner1->next;
+		runner2 = runner2->next;
+	}
+	return sum;
+}
+
+/* Problem 2.6
+Find beginning of loop in circular linked list
+*/
+template <class T>
+node<T>* FindLoopHead(SinglyLinkedList<T> L){
+	node<T>* runner1 = L.getHead();
+	node<T>* runner2 = L.getHead();
+	node<T>* finalRunner = L.getHead();
+	do {
+		runner1 = runner1->next;
+		runner2 = runner2->next->next;
+	} 
+	while (runner1 != runner2);
+	while (finalRunner != runner1){
+		runner1 = runner1->next;
+		finalRunner = finalRunner->next;
+	}
+	return finalRunner;
+}
+
+
 /*
 Used for testing
 */
 int main(){
-	SinglyLinkedList<int> list = SinglyLinkedList<int>();
-	node<int>* give;
-	for (int i = 1; i < 11; i++){
-		list.insert(i*i*i % 11);
-	}
-	SinglyLinkedList<int> list2 = partitionLL(5, list);
-	node<int>* print = list2.getHead();
-
-	while (print != NULL){
-		cout << print->data << " ";
-		print = print->next;
-	}
-
-	cout << endl;
-
+	SinglyLinkedList<int> L;
+	node<int>* tail;
+	node<int>* loophead;
+	L.insert(5);
+	tail = L.getHead();
+	L.insert(4);
+	L.insert(3);
+	L.insert(2);
+	L.insert(1);
+	loophead = L.getHead();
+	tail->next = loophead;
+	cout << loophead << endl;
+	L.insert(6);
+	L.insert(7);
+	L.insert(8);
+	cout << FindLoopHead(L) << endl;
+	cout << FindLoopHead(L)->data << endl;
 }
